@@ -1,10 +1,10 @@
-package com.subjects;
+package com.shoes;
 
-public class Subject {
+public class Shoe {
 
 	private int id;
 	private String name;
-	private String level;
+	private String category;
 	
 	public int getId() {
 		return id;
@@ -22,12 +22,12 @@ public class Subject {
 		this.name = name;
 	}
 	
-	public String getLevel() {
-		return level;
+	public String getCategory() {
+		return category;
 	}
 	
-	public void setLevel(String level) {
-		this.level = level;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }

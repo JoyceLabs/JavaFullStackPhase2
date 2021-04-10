@@ -1,4 +1,4 @@
-package com.schoolclasses;
+package com.shoes;
 
 
 import java.io.IOException;
@@ -9,28 +9,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/AddSchoolClassServlet2")
-public class AddSchoolClassServlet2 extends HttpServlet {
+@WebServlet("/AddShoesServlet2")
+public class AddShoesServlet2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		
 		String sid=request.getParameter("id");
-		String semester=request.getParameter("semester");
-		String ssubjectId=request.getParameter("subjectId");
-		int subjectId=Integer.parseInt(ssubjectId);
-		String steacherId=request.getParameter("teacherId");
-		int teacherId=Integer.parseInt(steacherId);
+		int id=Integer.parseInt(sid);
+		String name=request.getParameter("name");
+		String category=request.getParameter("category");
 		
-		SchoolClass c=new SchoolClass();
-		c.setId(sid);
-		c.setSemester(semester);
-		c.setSubjectId(subjectId);
-		c.setTeacherId(teacherId);
+		Shoe s=new Shoe();
+		s.setId(id);
+		s.setName(name);
+		s.setCategory(category);
 		
-		int status=SchoolClassDao.save(c);
+		int status=ShoeDao.save(s);
 		if(status>0){
-			response.sendRedirect("ListSchoolClasses");
+			response.sendRedirect("ListShoes");
 		}else{
 			out.println("Sorry! unable to add record");
 		}

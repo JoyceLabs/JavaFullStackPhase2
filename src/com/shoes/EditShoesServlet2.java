@@ -1,4 +1,4 @@
-package com.teachers;
+package com.shoes;
 
 
 import java.io.IOException;
@@ -9,28 +9,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-@WebServlet("/SaveServlet")
-public class SaveServlet extends HttpServlet {
+@WebServlet("/EditShoesServlet2")
+public class EditShoesServlet2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		
+		String sid=request.getParameter("id");
+		int id=Integer.parseInt(sid);
 		String name=request.getParameter("name");
-		String email=request.getParameter("email");
+		String category=request.getParameter("category");
 		
-		Teacher t=new Teacher();
-		t.setName(name);
-		t.setEmail(email);
+		Shoe s=new Shoe();
+		s.setId(id);
+		s.setName(name);
+		s.setCategory(category);
 		
-		System.out.println("Teacher is " + t);
-		
-		int status=TeacherDao.save(t);
+		int status=ShoeDao.update(s);
 		if(status>0){
-			out.print("<p>Record saved successfully!</p>");
-			request.getRequestDispatcher("index.html").include(request, response);
+			response.sendRedirect("ListShoes");
 		}else{
-			out.println("Sorry! unable to save record");
+			out.println("Sorry! unable to update record");
 		}
 		
 		out.close();

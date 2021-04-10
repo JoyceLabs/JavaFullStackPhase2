@@ -1,9 +1,9 @@
-package com.subjects;
+package com.shoes;
 
 import java.util.*;
 import java.sql.*;
 
-public class SubjectDao {
+public class ShoeDao {
 
 	public static Connection getConnection(){
 		Connection con=null;
@@ -16,14 +16,14 @@ public class SubjectDao {
 		return con;
 	}
 	
-	public static int save(Subject s){
+	public static int save(Shoe s){
 		int status=0;
 		try{
-			Connection con=SubjectDao.getConnection();
-			PreparedStatement ps=con.prepareStatement("insert into subjects(id, name, level) values (?, ?, ?)");
+			Connection con=ShoeDao.getConnection();
+			PreparedStatement ps=con.prepareStatement("insert into shoes(id, name, category) values (?, ?, ?)");
 			ps.setInt(1,s.getId());
 			ps.setString(2,s.getName());
-			ps.setString(3,s.getLevel());
+			ps.setString(3,s.getCategory());
 			
 			status=ps.executeUpdate();
 			
@@ -32,13 +32,13 @@ public class SubjectDao {
 		
 		return status;
 	}
-	public static int update(Subject s){
+	public static int update(Shoe s){
 		int status=0;
 		try{
-			Connection con=SubjectDao.getConnection();
-			PreparedStatement ps=con.prepareStatement("update subjects set name=?, level=? where id=?");
+			Connection con=ShoeDao.getConnection();
+			PreparedStatement ps=con.prepareStatement("update shoes set name=?, category=? where id=?");
 			ps.setString(1,s.getName());
-			ps.setString(2,s.getLevel());
+			ps.setString(2,s.getCategory());
 			ps.setInt(3,s.getId());
 			
 			status=ps.executeUpdate();
@@ -51,8 +51,8 @@ public class SubjectDao {
 	public static int delete(int id){
 		int status=0;
 		try{
-			Connection con=SubjectDao.getConnection();
-			PreparedStatement ps=con.prepareStatement("delete from subjects where id=?");
+			Connection con=ShoeDao.getConnection();
+			PreparedStatement ps=con.prepareStatement("delete from shoes where id=?");
 			ps.setInt(1,id);
 			status=ps.executeUpdate();
 			
@@ -61,36 +61,36 @@ public class SubjectDao {
 		
 		return status;
 	}
-	public static Subject getSubjectById(int id){
-		Subject s=new Subject();
+	public static Shoe getShoeById(int id){
+		Shoe s=new Shoe();
 		
 		try{
-			Connection con=SubjectDao.getConnection();
-			PreparedStatement ps=con.prepareStatement("select * from subjects where id=?");
+			Connection con=ShoeDao.getConnection();
+			PreparedStatement ps=con.prepareStatement("select * from shoes where id=?");
 			ps.setInt(1,id);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()){
 				s.setId(rs.getInt(1));
 				s.setName(rs.getString(2));
-				s.setLevel(rs.getString(3));
+				s.setCategory(rs.getString(3));
 			}
 			con.close();
 		}catch(Exception ex){ex.printStackTrace();}
 		
 		return s;
 	}
-	public static List<Subject> getAllSubjects(){
-		List<Subject> list=new ArrayList<Subject>();
+	public static List<Shoe> getAllShoes(){
+		List<Shoe> list=new ArrayList<Shoe>();
 		
 		try{
-			Connection con=SubjectDao.getConnection();
-			PreparedStatement ps=con.prepareStatement("SELECT ID, NAME, LEVEL FROM subjects ORDER BY ID ");
+			Connection con=ShoeDao.getConnection();
+			PreparedStatement ps=con.prepareStatement("SELECT ID, NAME, Category FROM shoes ORDER BY ID ");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
-				Subject s=new Subject();
+				Shoe s=new Shoe();
 				s.setId(rs.getInt(1));
 				s.setName(rs.getString(2));
-				s.setLevel(rs.getString(3));
+				s.setCategory(rs.getString(3));
 				list.add(s);
 			}
 			con.close();

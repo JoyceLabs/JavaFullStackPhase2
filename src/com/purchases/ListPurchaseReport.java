@@ -1,4 +1,4 @@
-package com.students;
+package com.purchases;
 
 
 import java.io.IOException;
@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ListMasterStudents")
-public class ListMasterStudents extends HttpServlet {
+@WebServlet("/ListPurchaseReport")
+public class ListPurchaseReport extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		out.println("<a href='AdminMenu.jsp'>Return to Main Menu</a>");
-		out.println("<h1>Students Master List</h1>");
+		out.println("<h1>Purchases Report</h1>");
 		
-		List<Student> list=StudentDao.getAllStudentsInClasses();
+		List<Purchase> list=PurchaseDao.getAllPurchaseInfo();
 		
 		out.print("<table border='1' width='100%'");
-		out.print("<tr><th>Id</th><th>Name</th><th>Email</th><th>Semester</th><th>Subject Name</th><th>Teacher Name</th></tr>");
-		
-		for(Student s:list){
-			out.print("<tr><td>"+s.getId()+"</td><td>"+s.getName()+"</td><td>"+s.getEmail()+"</td><td>"+s.getSemester()+"</td><td>"+s.getSubjectName()+"</td><td>"+s.getTeacherName()+"</td></tr>");
+		out.print("<tr><th>Id</th><th>Shoe Id</th><th>Name</th><th>Category</th><th>Purchase Date</th></tr>");
+
+		for(Purchase c:list){
+			out.print("<tr><td>"+c.getId()+"</td><td>"+c.getShoeId()+"</td><td>"+c.getName()+"</td><td>"+c.getCategory()+"</td><td>"+c.getPurchaseDate()+"</td></tr>");
 		}
 		out.print("</table>");
 		
